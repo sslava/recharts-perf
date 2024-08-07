@@ -21,13 +21,12 @@ function LineChartContainer({ data }) {
         isAnimationActive={false}
         type="monotone"
         dataKey="pv"
-        stroke="#8884d8"
-        activeDot={{ r: 8 }}
+        stroke="#42a5f6"
       />
       <Line
         type="monotone"
         dataKey="uv"
-        stroke="#82ca9d"
+        stroke="#ff9f40"
         isAnimationActive={false}
       />
     </LineChart>
@@ -40,8 +39,8 @@ function BarChartContainer({ data }) {
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="name" />
       <YAxis />
-      <Bar dataKey="pv" fill="#8884d8" isAnimationActive={false} />
-      <Bar dataKey="uv" fill="#82ca9d" isAnimationActive={false} />
+      <Bar dataKey="pv" fill="#42a5f6" isAnimationActive={false} />
+      <Bar dataKey="uv" fill="#ff9f40" isAnimationActive={false} />
     </BarChart>
   );
 }
@@ -57,16 +56,16 @@ function AreaChartContainer({ data }) {
         isAnimationActive={false}
         dataKey="uv"
         stackId="1"
-        stroke="#8884d8"
-        fill="#8884d8"
+        stroke="#42a5f6"
+        fill="#42a5f6"
       />
       <Area
         type="monotone"
         isAnimationActive={false}
         dataKey="pv"
         stackId="1"
-        stroke="#82ca9d"
-        fill="#82ca9d"
+        stroke="#ff9f40"
+        fill="#ff9f40"
       />
     </AreaChart>
   );

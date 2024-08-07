@@ -17,21 +17,20 @@ import { getChartData } from '../api';
 function LineChartContainer({ data }: { data: ChartData[] }) {
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={data ?? []} height={300}>
+      <LineChart data={data} height={300}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="name" tick={false} />
         <YAxis />
         <Line
-          isAnimationActive={false}
           type="monotone"
           dataKey="pv"
-          stroke="#8884d8"
-          activeDot={{ r: 8 }}
+          stroke="#42a5f6"
+          isAnimationActive={false}
         />
         <Line
           type="monotone"
           dataKey="uv"
-          stroke="#82ca9d"
+          stroke="#ff9f40"
           isAnimationActive={false}
         />
       </LineChart>
@@ -44,10 +43,10 @@ function BarChartContainer({ data }: { data: ChartData[] }) {
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data} height={300}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="name" tick={false} />
         <YAxis />
-        <Bar dataKey="pv" fill="#8884d8" isAnimationActive={false} />
-        <Bar dataKey="uv" fill="#82ca9d" isAnimationActive={false} />
+        <Bar dataKey="pv" fill="#42a5f6" isAnimationActive={false} />
+        <Bar dataKey="uv" fill="#ff9f40" isAnimationActive={false} />
       </BarChart>
     </ResponsiveContainer>
   );
@@ -58,23 +57,23 @@ function AreaChartContainer({ data }: { data: ChartData[] }) {
     <ResponsiveContainer width="100%" height={300}>
       <AreaChart data={data} height={300}>
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="name" tick={false} />
         <YAxis />
         <Area
           type="monotone"
-          isAnimationActive={false}
           dataKey="uv"
           stackId="1"
-          stroke="#8884d8"
-          fill="#8884d8"
+          stroke="#42a5f6"
+          fill="#42a5f6"
+          isAnimationActive={false}
         />
         <Area
           type="monotone"
-          isAnimationActive={false}
           dataKey="pv"
           stackId="1"
-          stroke="#82ca9d"
-          fill="#82ca9d"
+          stroke="#ff9f40"
+          fill="#ff9f40"
+          isAnimationActive={false}
         />
       </AreaChart>
     </ResponsiveContainer>
@@ -87,17 +86,26 @@ type ChartCardProps = {
   type: ChartType;
 };
 
+const components = {
+  line: LineChartContainer,
+  bar: BarChartContainer,
+  area: AreaChartContainer,
+};
+
 export default function ChartCard({ id, type }: ChartCardProps) {
   const { data } = useQuery({
     queryKey: ['chartData', id],
     queryFn: () => getChartData(id),
   });
 
+  const ChartComponent = components[type];
+  if (!ChartComponent) {
+    return null;
+  }
+
   return (
     <div className="shadow-md p-4 bg-white rounded-lg max-h-96">
-      <div>{type === 'line' && <LineChartContainer data={data ?? []} />}</div>
-      <div>{type === 'bar' && <BarChartContainer data={data ?? []} />}</div>
-      <div>{type === 'area' && <AreaChartContainer data={data ?? []} />}</div>
+      <ChartComponent data={data ?? []} />
     </div>
   );
 }

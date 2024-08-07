@@ -1,7 +1,9 @@
 import { ChartData, ChartInfo } from './components/charts';
 
-export async function getCharts(): Promise<ChartInfo[]> {
-  const resp = await fetch(`http://localhost:8080/api/charts`);
+export async function getCharts(page?: number): Promise<ChartInfo[]> {
+  const resp = await fetch(
+    `http://localhost:8080/api/charts?page=${page ?? ''}`,
+  );
   return (await resp.json()) as ChartInfo[];
 }
 

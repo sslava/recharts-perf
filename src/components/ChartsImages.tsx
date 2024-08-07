@@ -1,7 +1,13 @@
+import { useQuery } from '@tanstack/react-query';
 import ChartImgCard from './ChartImgCard';
-import { ChartInfo } from './charts';
+import { getCharts } from '../api';
 
-export default function GridImgs({ data }: { data?: ChartInfo[] }) {
+export default function ChartsImages() {
+  const { data } = useQuery({
+    queryKey: ['charts'],
+    queryFn: () => getCharts(),
+  });
+
   return (
     <div className="grid sm:grid-cols-2  md:grid-cols-2 lg:grid-cols-3 gap-4">
       {data?.map((c) => (
