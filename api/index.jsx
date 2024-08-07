@@ -2,7 +2,7 @@ import React from 'react';
 import express from 'express';
 import cors from 'cors';
 import { renderToString } from 'react-dom/server';
-import { decorateRechartSvg, Preview } from './ChartPreview.jsx';
+import { decorateRechartSvg, Chart } from './ChartPreview.jsx';
 
 function random(min = 0, max = 200) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -39,14 +39,21 @@ app.get('/api/charts', async (req, res) => {
   res.json(charts.slice(start, end));
 });
 
-app.get('/api/data/:id', async (req, res) => {
+app.get('/api/charts/:id', async (req, res) => {
   res.json(getChartData(req.params.id));
 });
 
-app.get('/api/preview/:id', async (req, res) => {
-  const data = getChartData(req.params.id);
-  const svg = renderToString(<Preview type={req.query.type} data={data} />);
-  res.setHeader('Content-Type', 'image/svg+xml').send(decorateRechartSvg(svg));
+const imMemoryCache = {};
+
+app.get('/api/charts-svg/:id', async (req, res) => {
+  const cacheKey = `${req.params.id}-${req.query.type}`;
+  if (!imMemoryCache[cacheKey]) {
+    const data = getChartData(req.params.id);
+    const svg = renderToString(<Chart type={req.query.type} data={data} />);
+    imMemoryCache[cacheKey] = decorateRechartSvg(svg);
+  }
+  res.setHeader('Content-Type', 'image/svg+xml');
+  res.send(imMemoryCache[cacheKey]);
 });
 
 app.listen(8080);

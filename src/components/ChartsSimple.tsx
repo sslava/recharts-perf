@@ -10,9 +10,7 @@ export default function ChartsSimple() {
 
   return (
     <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      {data?.map((c) => (
-        <ChartCard key={c.id} id={c.id} type={c.type} name={c.name} />
-      ))}
+      {data?.map((c) => <ChartCard key={c.id} id={c.id} type={c.type} />)}
     </div>
   );
 }

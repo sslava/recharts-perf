@@ -8,6 +8,6 @@ export async function getCharts(page?: number): Promise<ChartInfo[]> {
 }
 
 export async function getChartData(id: string): Promise<ChartData[]> {
-  const resp = await fetch(`http://localhost:8080/api/data/${id}`);
+  const resp = await fetch(`http://localhost:8080/api/charts/${id}`);
   return (await resp.json()) as ChartData[];
 }

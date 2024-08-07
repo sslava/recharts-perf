@@ -72,7 +72,7 @@ export default function ChartsVirtual() {
               const c = rows[vr.index * cols + i];
               return (
                 <div className="w-full" key={c?.id}>
-                  {c && <ChartCard id={c.id} type={c.type} name={c.name} />}
+                  {c && <ChartCard id={c.id} type={c.type} />}
                 </div>
               );
             })}

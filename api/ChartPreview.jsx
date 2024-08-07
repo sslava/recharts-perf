@@ -81,15 +81,16 @@ export const decorateRechartSvg = (rechartsSvg) => {
   )}`;
 };
 
-export function Preview({ data, type }) {
-  if (type === 'line') {
-    return <LineChartContainer data={data} />;
+const components = {
+  line: LineChartContainer,
+  bar: BarChartContainer,
+  area: AreaChartContainer,
+};
+
+export function Chart({ data, type }) {
+  const Component = components[type];
+  if (!Component) {
+    return null;
   }
-  if (type === 'bar') {
-    return <BarChartContainer data={data} />;
-  }
-  if (type === 'area') {
-    return <AreaChartContainer data={data} />;
-  }
-  return 'not supported';
+  return <Component data={data} />;
 }

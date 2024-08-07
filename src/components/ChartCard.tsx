@@ -82,7 +82,6 @@ function AreaChartContainer({ data }: { data: ChartData[] }) {
 
 type ChartCardProps = {
   id: string;
-  name: string;
   type: ChartType;
 };
 
