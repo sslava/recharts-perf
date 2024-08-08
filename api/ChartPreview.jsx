@@ -15,18 +15,18 @@ function LineChartContainer({ data }) {
   return (
     <LineChart width={500} height={300} data={data ?? []}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="name" tick={false} />
       <YAxis />
       <Line
         isAnimationActive={false}
         type="monotone"
         dataKey="pv"
-        stroke="#42a5f6"
+        stroke="rgb(66, 165, 246)"
       />
       <Line
         type="monotone"
         dataKey="uv"
-        stroke="#ff9f40"
+        stroke="rgb(153, 102, 255)"
         isAnimationActive={false}
       />
     </LineChart>
@@ -37,10 +37,10 @@ function BarChartContainer({ data }) {
   return (
     <BarChart width={500} height={300} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="name" tick={false} />
       <YAxis />
-      <Bar dataKey="pv" fill="#42a5f6" isAnimationActive={false} />
-      <Bar dataKey="uv" fill="#ff9f40" isAnimationActive={false} />
+      <Bar dataKey="pv" fill="rgb(66, 165, 246)" isAnimationActive={false} />
+      <Bar dataKey="uv" fill="rgb(153, 102, 255)" isAnimationActive={false} />
     </BarChart>
   );
 }
@@ -49,23 +49,23 @@ function AreaChartContainer({ data }) {
   return (
     <AreaChart width={500} height={300} data={data}>
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
+      <XAxis dataKey="name" tick={false} />
       <YAxis />
       <Area
         type="monotone"
         isAnimationActive={false}
         dataKey="uv"
         stackId="1"
-        stroke="#42a5f6"
-        fill="#42a5f6"
+        stroke="rgb(66, 165, 246)"
+        fill="rgb(66, 165, 246)"
       />
       <Area
         type="monotone"
         isAnimationActive={false}
         dataKey="pv"
         stackId="1"
-        stroke="#ff9f40"
-        fill="#ff9f40"
+        stroke="rgb(153, 102, 255)"
+        fill="rgb(153, 102, 255)"
       />
     </AreaChart>
   );

@@ -8,6 +8,8 @@ function random(min = 0, max = 200) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 const types = ['line', 'bar', 'area'];
 
 const charts = Array.from({ length: 200 }, (_, i) => ({
@@ -19,7 +21,7 @@ const chartsData = {};
 
 function getChartData(id) {
   if (!chartsData[id]) {
-    chartsData[id] = Array.from({ length: random(7, 20) }, (_, i) => ({
+    chartsData[id] = Array.from({ length: random(5, 10) }, (_, i) => ({
       name: `Day ${i + 1}`,
       uv: random(0, 1000),
       pv: random(0, 1000),
@@ -33,13 +35,14 @@ app.use(cors());
 
 app.get('/api/charts', async (req, res) => {
   const page = req.query.page;
-  console.log('page', page);
-  const start = page ? page * 20 : 0;
-  const end = page ? start + 20 : undefined;
+  await delay(400);
+  const start = page ? page * 40 : 0;
+  const end = page ? start + 40 : undefined;
   res.json(charts.slice(start, end));
 });
 
 app.get('/api/charts/:id', async (req, res) => {
+  await delay(55);
   res.json(getChartData(req.params.id));
 });
 
